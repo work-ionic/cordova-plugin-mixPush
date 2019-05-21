@@ -225,7 +225,7 @@
     
     
     NSLog(@"消息：%@",json);
-    NSString *js = [NSString stringWithFormat:@"window.plugins.MixPushPlugin.%@(%@)", type, json];
+    NSString *js = [NSString stringWithFormat:@"MixPushPlugin.%@(%@)", type, json];
     NSLog(@"消息JS：%@",js);
     if (SharedMiPushPlugin) {
         dispatch_async(dispatch_get_main_queue(), ^{

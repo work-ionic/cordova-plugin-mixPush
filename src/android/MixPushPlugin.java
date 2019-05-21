@@ -201,7 +201,7 @@ public class MixPushPlugin extends CordovaPlugin {
             return;
         }
         Log.e(TAG, "-------------onNotificationArrived------------------" + jsonObject.toString());
-        String format = "window.plugins.MixPushPlugin.onNotificationArrived(%s);";
+        String format = "MixPushPlugin.onNotificationArrived(%s);";
         final String js = String.format(format, jsonObject.toString());
         instance.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -218,7 +218,7 @@ public class MixPushPlugin extends CordovaPlugin {
             return;
         }
         Log.e(TAG, "-------------onNotificationClicked------------------" + jsonObject.toString());
-        String format = "window.plugins.MixPushPlugin.onNotificationClicked(%s);";
+        String format = "MixPushPlugin.onNotificationClicked(%s);";
         final String js = String.format(format, jsonObject.toString());
         instance.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -240,7 +240,7 @@ public class MixPushPlugin extends CordovaPlugin {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        String format = "window.plugins.MixPushPlugin."+type+"(%s);";
+        String format = "MixPushPlugin."+type+"(%s);";
         final String js = String.format(format,jsonObject.toString());
         instance.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override

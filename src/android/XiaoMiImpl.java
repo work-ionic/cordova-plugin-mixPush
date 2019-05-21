@@ -209,7 +209,7 @@ public class XiaoMiImpl implements IPush {
             callback.success();
         } catch (Exception e) {
             e.printStackTrace();
-            callback.error("clearNotificationById:error--" + e.toString());
+            callback.error("clearNotificationById:erroMiPush_SDK_Client--" + e.toString());
         }
     }
 

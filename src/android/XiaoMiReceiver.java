@@ -39,7 +39,8 @@ public class XiaoMiReceiver  extends PushMessageReceiver {
         try {
             ShortcutBadger.applyCount(context,Integer.parseInt(miPushMessage.getExtra().get("unrecv")));
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            ShortcutBadger.applyCount(context, 1);
+            Log.e("TAG", "get(unrecv) 取不到值,默认设置为1");
         }
         MixPushPlugin.onNotificationMessageArrivedCallBack(msgToJson(miPushMessage), miPushMessage.getExtra());        
     }
@@ -75,7 +76,8 @@ public class XiaoMiReceiver  extends PushMessageReceiver {
         try {
             ShortcutBadger.applyCount(context,Integer.parseInt(miPushMessage.getExtra().get("unrecv")));
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            ShortcutBadger.applyCount(context, 1);
+            Log.e("TAG", "get(unrecv) 取不到值,默认设置为1");
         }
         MixPushPlugin.onNotificationMessageArrivedCallBack(msgToJson(miPushMessage), miPushMessage.getExtra());
     }
