@@ -4,7 +4,7 @@
 #import "MiPushSDK.h"
 
 @implementation MiPushPlugin
-MiPushPlugin *SharedMiPushPlugin;
+MiPushPlugin *SharedMiPushPlugin=nil;
 
 - (void)pluginInitialize {
     [super pluginInitialize];

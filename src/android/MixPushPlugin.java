@@ -120,9 +120,9 @@ public class MixPushPlugin extends CordovaPlugin {
                 if(cordova.hasPermission(permissions[0]) && cordova.hasPermission(permissions[1])) {
                     pushEngine.registerPush(callbackContext, cordova.getActivity(), args);
                 } else {
-                    this.mCallbackContext = callbackContext;
-                    this.mInitArgs = args;
-                    cordova.requestPermissions(this, PERMISSION_REQUEST, permissions);
+                        this.mCallbackContext = callbackContext;
+                        this.mInitArgs = args;
+                        cordova.requestPermissions(this, PERMISSION_REQUEST, permissions);
                 }
 
                 return true;
@@ -211,7 +211,7 @@ public class MixPushPlugin extends CordovaPlugin {
 
     @Override
     public void onRequestPermissionResult(int requestCode, String[] permissions,
-                                          int[] grantResults) throws JSONException {
+                                              int[] grantResults) throws JSONException {
         Log.e(TAG, "-------------获取权限结果 ---》》》》");
         for(int r:grantResults)
         {
