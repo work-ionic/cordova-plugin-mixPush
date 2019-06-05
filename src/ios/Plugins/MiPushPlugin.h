@@ -50,4 +50,4 @@
 +(void)callbackWithType: (NSString *) type data:(NSDictionary *)data;
 @end
 
-static MiPushPlugin *SharedMiPushPlugin;
+extern MiPushPlugin *SharedMiPushPlugin;

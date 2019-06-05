@@ -1,6 +1,8 @@
 package com.dmc.push;
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 import org.apache.cordova.CallbackContext;
@@ -24,10 +26,19 @@ import static android.content.Context.MODE_PRIVATE;
 public class MixPushPlugin extends CordovaPlugin {
     private static String TAG = "MiPushPlugin";
     private static MixPushPlugin instance;
+    private static final int PERMISSION_REQUEST = 1;
+
+    protected final static String[] permissions = {
+            Manifest.permission.READ_PHONE_STATE
+            ,Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
     IPush pushEngine;
     public MixPushPlugin() {
         instance = this;
     }
+    private CallbackContext mCallbackContext;
+    private JSONArray mInitArgs;
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -97,12 +108,23 @@ public class MixPushPlugin extends CordovaPlugin {
             return false;
         }
 
+        if (instance == null) {
+            return false;
+        }
+
         switch (type) {
             case SETPUSHENGINE:
                 setPushEngine(args.getString(0));
                 return true;
             case REGISTERPUSH:
-                pushEngine.registerPush(callbackContext, cordova.getActivity(), args);
+                if(cordova.hasPermission(permissions[0]) && cordova.hasPermission(permissions[1])) {
+                    pushEngine.registerPush(callbackContext, cordova.getActivity(), args);
+                } else {
+                        this.mCallbackContext = callbackContext;
+                        this.mInitArgs = args;
+                        cordova.requestPermissions(this, PERMISSION_REQUEST, permissions);
+                }
+
                 return true;
             case EXITPUSH:
                 pushEngine.exitPush(callbackContext, cordova.getActivity(), args);
@@ -173,6 +195,37 @@ public class MixPushPlugin extends CordovaPlugin {
         return false;
     }
 
+    protected boolean getAllPermissions()
+    {
+        for(String r: permissions)
+        {
+            if(!cordova.hasPermission(permissions[0])) {
+                Log.e(TAG, "-------------需要获取权限 》》》" + r);
+                cordova.requestPermissions(this, PERMISSION_REQUEST, permissions);
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    @Override
+    public void onRequestPermissionResult(int requestCode, String[] permissions,
+                                              int[] grantResults) throws JSONException {
+        Log.e(TAG, "-------------获取权限结果 ---》》》》");
+        for(int r:grantResults)
+        {
+            if(r == PackageManager.PERMISSION_DENIED)
+            {
+                getAllPermissions();
+                return;
+            }
+        }
+        // 权限申请通过
+        Log.e(TAG, "-------------获取权限结果 权限申请通过");
+        pushEngine.registerPush(this.mCallbackContext, cordova.getActivity(), this.mInitArgs);
+    }
+
 
     public static void  addBadgerToSp(){
         SharedPreferences sp = instance.cordova.getActivity().getSharedPreferences("Badger", MODE_PRIVATE);
@@ -191,6 +244,7 @@ public class MixPushPlugin extends CordovaPlugin {
         editor.commit();
         ShortcutBadger.applyCount(instance.cordova.getActivity(),sp.getInt("count",0));
     }
+
 
     /**
      * 接受到消息

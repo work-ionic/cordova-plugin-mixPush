@@ -244,15 +244,8 @@ MixPushPlugin.prototype.minusBadgerToSp = function(args,successCallback,errorCal
     cordova.exec(successCallback, errorCallback, 'MixPushPlugin', "minusBadgerToSp", args);
 }
 
-if (!window.plugins) {
-    window.plugins = {}
+if (!MixPushPlugin) {
+    MixPushPlugin = new MixPushPlugin()
 }
-
-if (!window.plugins.MixPushPlugin) {
-    window.plugins.MixPushPlugin = new MixPushPlugin()
-}
-
 
 module.exports = new MixPushPlugin();
-
-
