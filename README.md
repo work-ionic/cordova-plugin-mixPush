@@ -27,11 +27,11 @@ code:
        document.addEventListener('deviceready',push , false);
        function push(){
             var deviceBrand="xiaoMi";//目前只支持小米引擎
-            window.plugins.MixPushPlugin.setPushEngine([deviceBrand]);
+            MixPushPlugin.setPushEngine([deviceBrand]);
             var miId = '2882303******08931'; //android id
             var miKey = '57117***2931'; //android key
             //开始启动注册小米推送
-            window.plugins.MixPushPlugin.registerPush([miId, miKey]);
+            MixPushPlugin.registerPush([miId, miKey]);
 
             //registerPush事件
            document.addEventListener("MixPushPlugin.onRegisterPush", function onCallBack(data) {
@@ -45,7 +45,7 @@ code:
 
             //设置Alias
             function setAlias(alias) {
-                window.plugins.MixPushPlugin.setAlias([alias]);
+                MixPushPlugin.setAlias([alias]);
                 //onSetAliasPush事件
                 document.addEventListener("MixPushPlugin.onSetAliasPush", function onCallBack(data)  {
                     if (data) {
@@ -58,7 +58,7 @@ code:
             //来消息后的事件监听
             document.addEventListener("MixPushPlugin.onNotificationArrived",function onCallBack(data) {
                     if (data && data.title) {
-                        window.plugins.MixPushPlugin.badgerApplyCount([20]);//来消息后把APP图标上的角标数字改成20
+                        MixPushPlugin.badgerApplyCount([20]);//来消息后把APP图标上的角标数字改成20
                         console.log('来消息了：' + data.title);
                         alert(data.title);
                     }
@@ -67,7 +67,7 @@ code:
             //点消息后的事件监听
              document.addEventListener("MixPushPlugin.onNotificationClicked", function onCallBack(data) {
                          if (data && data.title) {
-                             window.plugins.MixPushPlugin.badgerApplyCount([0]);//点消息后清空数字
+                             MixPushPlugin.badgerApplyCount([0]);//点消息后清空数字
                              console.log('点消息了：' + data.title);
                              alert(data.title);
                          }

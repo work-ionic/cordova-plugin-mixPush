@@ -2,7 +2,7 @@
 <plugin id="cordova-plugin-mixPush" version="1.0.8" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>MixPush</name>
     <js-module name="MixPushPlugin" src="www/MixPushPlugin.js">
-        <clobbers target="window.plugins.MixPushPlugin" />
+        <clobbers target="MixPushPlugin" />
     </js-module>
     <preference name="ANDROID_PACKAGE_NAME" />
     <preference name="MI_PUSH_APP_IOS_KEY"/>
@@ -19,6 +19,7 @@
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
             <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.GET_TASKS" />
             <uses-permission android:name="android.permission.VIBRATE"/>
             <permission android:name="$PACKAGE_NAME.permission.MIPUSH_RECEIVE" android:protectionLevel="signature" />
@@ -83,9 +84,9 @@
         <source-file src="src/android/XiaoMiImpl.java" target-dir="src/com/dmc/push" />
         <source-file src="src/android/XiaoMiReceiver.java" target-dir="src/com/dmc/push" />
         <framework src="me.leolin:ShortcutBadger:1.1.17@aar" />
-        <source-file src="src/android/MiPush_SDK_Client_3_4_5.jar" target-dir="libs" />
+        <source-file src="src/android/MiPush_SDK_Client.jar" target-dir="libs" />
         <!-- 防止cordova android 7.0 找不到依赖文件的情况 -->
-        <source-file src="src/android/MiPush_SDK_Client_3_4_5.jar" target-dir="app/libs" />
+        <!--<source-file src="src/android/MiPush_SDK_Client.jar" target-dir="app/libs" />-->
     </platform>
 
 
