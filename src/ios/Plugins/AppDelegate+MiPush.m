@@ -57,6 +57,7 @@ static AppDelegate *myAppDeleagate=nil;
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [MiPushSDK handleReceiveRemoteNotification:userInfo];
+        // [MiPushSDK openAppNotify:messageId];
     }
     completionHandler();
 }
